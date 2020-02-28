@@ -1,9 +1,0 @@
----
-- hosts: leaf
-  roles:
-    - leafs
-
-
-
-
-...
