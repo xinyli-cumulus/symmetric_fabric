@@ -2,4 +2,4 @@
 - name: Copy FRR Configuration File
   template:
     src: /roles/templates/leaf_frr_template.j2
-    dst: /etc/frr/frr.conf
+    dest: /etc/frr/frr.conf
