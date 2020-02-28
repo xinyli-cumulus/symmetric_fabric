@@ -1,0 +1,22 @@
+vrf TENANT-A
+ vni 104001
+ exit-vrf
+!
+router bgp {{ switches[ansible_hostname].bgp_as }}
+ neighbor fabric peer-group
+ neighbor fabric remote-as external
+ neighbor swp51 interface peer-group fabric
+ neighbor swp52 interface peer-group fabric
+ !
+ address-family ipv4 unicast
+  redistribute connected route-map LOOPBACK
+ exit-address-family
+ !
+ address-family l2vpn evpn
+  neighbor fabric activate
+  advertise-all-vni
+ exit-address-family
+!
+route-map LOOPBACK permit 10
+ match interface lo
+!
