@@ -1,5 +1,7 @@
 ---
 - hosts: leaf
+  become: yes
+  become_user: root
   roles:
     - leafs
 
