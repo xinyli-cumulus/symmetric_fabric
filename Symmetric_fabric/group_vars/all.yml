@@ -4,16 +4,16 @@ switches:
     interfaces:
       lo:
         ipv4: 10.0.0.21/32
-      fabriclinks: [swp1,swp2,swp3,swp4,swp29,swp30]
-      peerlinks: [swp31,swp32]
+      fabriclinks: swp1-4,swp29-30
+      peerlinks: swp31-32
     bgp_as: 65020
 
   spine02:
     interfaces:
       lo:
         ipv4: 10.0.0.22/32
-      fabriclinks: [swp1,swp2,swp3,swp4,swp29,swp30]
-      peerlinks: [swp31,swp32]
+      fabriclinks: swp1-4,swp29-30
+      peerlinks: swp31-32
     bgp_as: 65020
 
   leaf01:
@@ -21,8 +21,9 @@ switches:
       lo:
         ipv4: 10.0.0.11/32
         vxlan_anycast_ip: 12.12.12.12
-      fabriclinks: [swp51,swp52]
-      peerlinks: [swp49,swp50]
+      fabriclinks: swp51-52
+      peerlinks: swp49-50
+      serverlinks: swp1
       vlan_id:
         - 10
         - 100
@@ -39,27 +40,22 @@ switches:
         - 00:00:5e:ff:00:10
         - 00:00:5e:ff:01:00
       l3_vni_mac: 44:38:39:ff:00:12
+      server_vlan: 10
     VRF:
       - TENANT-A
-    clag:
-      clag_sys_mac: 44:38:39:ff:00:12
-      clag_address: 169.254.1.1/30
-      clag_peer_address: 169.254.1.2/30
-      clag_priority: 1000
+      - TENANT-A
+    clag_role: primary
+    clag_sys_mac: 44:38:39:ff:00:12
     bgp_as: 65011
-    server:
-      server_vlan: 10
-      server_bond: server1
-      server_interface: swp1
-      server_clag_id: 1
 
   leaf02:
     interfaces:
       lo:
         ipv4: 10.0.0.12/32
         vxlan_anycast_ip: 12.12.12.12
-      fabriclinks: [swp51,swp52]
-      peerlinks: [swp49,swp50]
+      fabriclinks: swp51-52
+      peerlinks: swp49-50
+      serverlinks: swp1
       vlan_id:
         - 10
         - 100
@@ -76,27 +72,22 @@ switches:
         - 00:00:5e:ff:00:10
         - 00:00:5e:ff:01:00
       l3_vni_mac: 44:38:39:ff:00:12
+      server_vlan: 10
     VRF:
       - TENANT-A
-    clag:
-      clag_sys_mac: 44:38:39:ff:00:12
-      clag_address: 169.254.1.2/30
-      clag_peer_address: 169.254.1.1/30
-      clag_priority: 2000
+      - TENANT-A
+    clag_role: secondary
+    clag_sys_mac: 44:38:39:ff:00:12
     bgp_as: 65012
-    server:
-      server_vlan: 10
-      server_bond: server1
-      server_interface: swp1
-      server_clag_id: 1
 
   leaf03:
     interfaces:
       lo:
         ipv4: 10.0.0.13/32
         vxlan_anycast_ip: 34.34.34.34
-      fabriclinks: [swp51,swp52]
-      peerlinks: [swp49,swp50]
+      fabriclinks: swp51-52
+      peerlinks: swp49-50
+      serverlinks: swp1
       vlan_id:
         - 20
         - 100
@@ -113,21 +104,20 @@ switches:
         - 00:00:5e:ff:00:20
         - 00:00:5e:ff:01:00
       l3_vni_mac: 44:38:39:ff:00:34
+      server_vlan: 20
     VRF:
       - TENANT-A
+      - TENANT-A
     bgp_as: 65013
-    server:
-      server_vlan: 20
-      server_interface: swp1
 
   leaf04:
     interfaces:
       lo:
         ipv4: 10.0.0.14/32
         vxlan_anycast_ip: 34.34.34.34
-      fabriclinks: [swp51,swp52]
-      peerlinks: [swp49,swp50]
-      serverlinks: [swp1,swp2]
+      fabriclinks: swp51-52
+      peerlinks: swp49-50
+      serverlinks: swp1-2
     bgp_as: 65014
 
   exit01:
@@ -135,16 +125,15 @@ switches:
       lo:
         ipv4: 10.0.0.41/32
         vxlan_anycast_ip: 56.56.56.56
-      fabriclinks: [swp51,swp52]
-      peerlinks: [swp49,swp50]
+      fabriclinks: swp51-52
+      peerlinks: swp49-50
+      serverlinks: swp1
       l3_vni_mac: 44:38:39:ff:00:56
       swp44_ip: 172.16.1.2/30
+      server_vlan: 10
     VRF: TENANT-A
-    clag:
-      clag_sys_mac: 44:38:39:ff:00:56
-      clag_address: 169.254.1.1/30
-      clag_peer_address: 169.254.1.2/30
-      clag_priority: 1000
+    clag_role: primary
+    clag_sys_mac: 44:38:39:ff:00:56
     bgp_as: 65041
     bgp_peer_ip: 172.16.1.1
 
@@ -153,15 +142,14 @@ switches:
       lo:
         ipv4: 10.0.0.42/32
         vxlan_anycast_ip: 56.56.56.56
-      fabriclinks: [swp51,swp52]
-      peerlinks: [swp49,swp50]
+      fabriclinks: swp51-52
+      peerlinks: swp49-50
+      serverlinks: swp1
       l3_vni_mac: 44:38:39:ff:00:56
       swp44_ip: 172.16.2.2/30
+      server_vlan: 10
     VRF: TENANT-A
-    clag:
-      clag_sys_mac: 44:38:39:ff:00:56
-      clag_address: 169.254.1.1/30
-      clag_peer_address: 169.254.1.2/30
-      clag_priority: 1000
+    clag_role: secondary
+    clag_sys_mac: 44:38:39:ff:00:56
     bgp_as: 65042
     bgp_peer_ip: 172.16.2.1

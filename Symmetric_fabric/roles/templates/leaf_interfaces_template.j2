@@ -46,7 +46,7 @@ auto {{ switches[ansible_hostname].server.server_bond }}
 iface {{ switches[ansible_hostname].server.server_bond }}
     bond-slaves {{ switches[ansible_hostname].server.server_interface }}
     bridge-access {{ switches[ansible_hostname].server.server_vlan }}
-    clag-id {{ switches[ansible_hostname].server.server_clag_id }}
+    clag-id {{ switches[ansible_hostname].server.server_vlan }}
 
 {% for item1, item2, item3, item4 in switches[ansible_hostname].interfaces.vlan_id|zip(switches[ansible_hostname].interfaces.svi_ip)|zip(switches[ansible_hostname].interfaces.svi_vip)|zip(switches[ansible_hostname].interfaces.svi_vmac) %}
 auto vlan{{ item1 }}
