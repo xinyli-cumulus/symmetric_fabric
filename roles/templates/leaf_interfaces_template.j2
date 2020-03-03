@@ -15,14 +15,15 @@ auto eth0
 iface eth0 inet dhcp
 
 {% for item in switches[ansible_hostname].interfaces.fabriclinks %}
-  auto {{ item }}
-  iface {{ item }}
+auto {{ item }}
+iface {{ item }}
+
 {% endfor %}
 
 {% for item in switches[ansible_hostname].VRF %}
-  auto {{ item }}
-  iface {{ item }}
-      vrf-table auto
+auto {{ item }}
+iface {{ item }}
+    vrf-table auto
 {% endfor %}
 
 auto bridge
@@ -78,3 +79,6 @@ iface vni104001
     mstpctl-portbpdufilter yes
     vxlan-id 104001
     vxlan-local-tunnelip 10.0.0.12
+
+
+    
