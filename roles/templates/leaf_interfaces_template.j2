@@ -50,8 +50,8 @@ iface {{ switches[ansible_hostname].server.server_bond }}
     clag-id {{ switches[ansible_hostname].server.server_clag_id }}
 
 {% for int in switches[ansible_hostname].interfaces %}
-{%   set interface = switches[ansible_hostname].interfaces.{{int}} %}
-{% if interface.type == svi %}
+{%   set interface = switches[ansible_hostname].interfaces.{{ int }} %}
+{% if interface.type == "svi" %}
 auto vlan{{ interface.vlan }}
 iface vlan{{ interface.vlan }}
     address interface.address
@@ -60,7 +60,7 @@ iface vlan{{ interface.vlan }}
     vlan-raw-device bridge
     vrf {{ interface.vrf}}
 
-{% elif interface.type == svi_l3_vni %}
+{% elif interface.type == "svi_l3_vni" %}
 auto vlan{{ interface.vlan}}
 iface vlan{{ interface.vlan}}
     hwaddress {{ interface.hwaddress}}
@@ -68,7 +68,7 @@ iface vlan{{ interface.vlan}}
     vlan-raw-device bridge
     vrf {{ interface.vrf}}
 
-{% elif interface.type == vni %}
+{% elif interface.type == "vni" %}
 auto vni{{interface.vxlan_id}}
 iface vni{{interface.vxlan_id}}
     bridge-access {{interface.vlan}}
