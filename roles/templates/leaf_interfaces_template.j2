@@ -7,14 +7,14 @@ source /etc/network/interfaces.d/*.intf
 auto lo
 iface lo inet loopback
     # The primary network interface
-    address {{ switches[ansible_hostname].interfaces.lo.ipv4 }}
-    clagd-vxlan-anycast-ip {{ switches[ansible_hostname].interfaces.lo.vxlan_anycast_ip }}
+    address {{ switches[ansible_hostname].lo.ipv4 }}
+    clagd-vxlan-anycast-ip {{ switches[ansible_hostname].lo.vxlan_anycast_ip }}
 
 # The primary network interface
 auto eth0
 iface eth0 inet dhcp
 
-{% for item in switches[ansible_hostname].interfaces.fabriclinks %}
+{% for item in switches[ansible_hostname].fabriclinks %}
 auto {{ item }}
 iface {{ item }}
 
@@ -49,33 +49,34 @@ iface {{ switches[ansible_hostname].server.server_bond }}
     bridge-access {{ switches[ansible_hostname].server.server_vlan }}
     clag-id {{ switches[ansible_hostname].server.server_clag_id }}
 
-{% for item1, item2, item3, item4 in switches[ansible_hostname].interfaces.vlan_id|zip(switches[ansible_hostname].interfaces.svi_ip)|zip(switches[ansible_hostname].interfaces.svi_vip)|zip(switches[ansible_hostname].interfaces.svi_vmac) %}
-auto vlan{{ item1 }}
-iface vlan{{ item1 }}
-    address item2
-    address-virtual {{ item4 }} {{ item3 }}
-    vlan-id item1
+{% for interface in switches[ansible_hostname].interfaces %}
+{% if interface.type == svi %}
+auto vlan{{ interface.vlan }}
+iface vlan{{ interface.vlan }}
+    address interface.address
+    address-virtual {{ interface.vrr_mac }} {{ interface.vrr_address }}
+    vlan-id {{ interface.vlan }}
     vlan-raw-device bridge
-    vrf TENANT-A
-{% endfor %}
+    vrf {{ interface.vrf}}
 
-{% for item1, item2 in switches[ansible_hostname].interfaces.vlan_id|zip(switches[ansible_hostname].interfaces.vxlan_id) %}
-auto vni{{ item2 }}
-iface vni{{ item2 }}
-    bridge-access {{ item1 }}
-    bridge-arp-nd-suppress on
-    bridge-learning off
+{% elif interface.type == svi_l3_vni %}
+auto vlan{{ interface.vlan}}
+iface vlan{{ interface.vlan}}
+    hwaddress {{ interface.hwaddress}}
+    vlan-id {{ interface.vlan }}
+    vlan-raw-device bridge
+    vrf {{ interface.vrf}}
+
+{% elif interface.type == vni %}
+auto vni{{interface.vxlan_id}}
+iface vni{{interface.vxlan_id}}
+    bridge-access {{interface.vlan}}
+    birdge-learning off
     mstpctl-bpduguard yes
     mstpctl-portbpdufilter yes
-    vxlan-id {{ item2 }}
-    vxlan-local-tunnelip switches[ansible_hostname].interfaces.lo.ipv4
-{% endfor %}
+    vxlan-id {{interface.vxlan_id}}
+    vxlan-local-tunnelip {{ switches[ansible_hostname].lo.ipv4 }}
 
-auto vni104001
-iface vni104001
-    bridge-access 4001
-    bridge-learning off
-    mstpctl-bpduguard yes
-    mstpctl-portbpdufilter yes
-    vxlan-id 104001
-    vxlan-local-tunnelip 10.0.0.12
+{% else %}
+{% endif %}
+{% endfor %}

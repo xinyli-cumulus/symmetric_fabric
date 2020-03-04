@@ -1,44 +1,42 @@
 ---
 switches:
   spine01:
-    interfaces:
-      lo:
-        ipv4: 10.0.0.21/32
-      fabriclinks: [swp1,swp2,swp3,swp4,swp29,swp30]
-      peerlinks: [swp31,swp32]
+    fabriclinks: [swp1,swp2,swp3,swp4,swp29,swp30]
+    peerlinks: [swp31,swp32]
+    lo:
+      ipv4: 10.0.0.21/32
     bgp_as: 65020
 
   spine02:
-    interfaces:
-      lo:
-        ipv4: 10.0.0.22/32
-      fabriclinks: [swp1,swp2,swp3,swp4,swp29,swp30]
-      peerlinks: [swp31,swp32]
+    fabriclinks: [swp1,swp2,swp3,swp4,swp29,swp30]
+    peerlinks: [swp31,swp32]
+    lo:
+      ipv4: 10.0.0.22/32
     bgp_as: 65020
 
   leaf01:
+    fabriclinks: [swp51,swp52]
+    peerlinks: [swp49,swp50]
+    lo:
+      ipv4: 10.0.0.11/32
+      vxlan_anycast_ip: 12.12.12.12
     interfaces:
-      lo:
-        ipv4: 10.0.0.11/32
-        vxlan_anycast_ip: 12.12.12.12
-      fabriclinks: [swp51,swp52]
-      peerlinks: [swp49,swp50]
-      vlan_id:
-        - 10
-        - 100
-      vxlan_id:
-        - 10010
-        - 10100
-      svi_ip:
-        - 192.168.10.1/24
-        - 192.168.100.1/24
-      svi_vip:
-        - 192.168.10.254/24
-        - 192.168.100.254/24
-      svi_vmac:
-        - 00:00:5e:ff:00:10
-        - 00:00:5e:ff:01:00
-      l3_vni_mac: 44:38:39:ff:00:12
+      vlan10:
+        type: svi
+        address: 192.168.10.1/24
+        vrr_address: 192.168.10.254/24
+        vrr_mac: 00:00:5e:ff:00:10
+        vlan: 10
+        vrf: TENANT-A
+      vlan4001:
+        type: svi_l3_vni
+        hwaddress: 44:38:39:ff:00:12
+        vlan: 4001
+        vrf: TENANT-A
+      vni10010:
+        type: vni
+        vlan: 10
+        vxlan_id: 10010
     VRF:
       - TENANT-A
     clag:
@@ -54,28 +52,28 @@ switches:
       server_clag_id: 1
 
   leaf02:
+    fabriclinks: [swp51,swp52]
+    peerlinks: [swp49,swp50]
+    lo:
+      ipv4: 10.0.0.12/32
+      vxlan_anycast_ip: 12.12.12.12
     interfaces:
-      lo:
-        ipv4: 10.0.0.12/32
-        vxlan_anycast_ip: 12.12.12.12
-      fabriclinks: [swp51,swp52]
-      peerlinks: [swp49,swp50]
-      vlan_id:
-        - 10
-        - 100
-      vxlan_id:
-        - 10010
-        - 10100
-      svi_ip:
-        - 192.168.10.2/24
-        - 192.168.100.2/24
-      svi_vip:
-        - 192.168.10.254/24
-        - 192.168.100.254/24
-      svi_vmac:
-        - 00:00:5e:ff:00:10
-        - 00:00:5e:ff:01:00
-      l3_vni_mac: 44:38:39:ff:00:12
+      vlan10:
+        type: svi
+        address: 192.168.10.2/24
+        vrr_address: 192.168.10.254/24
+        vrr_mac: 00:00:5e:ff:00:10
+        vlan: 10
+        vrf: TENANT-A
+      vlan4001:
+        type: svi_l3_vni
+        hwaddress: 44:38:39:ff:00:12
+        vlan: 4001
+        vrf: TENANT-A
+      vni10010:
+        type: vni
+        vlan: 10
+        vxlan_id: 10010
     VRF:
       - TENANT-A
     clag:
@@ -91,28 +89,28 @@ switches:
       server_clag_id: 1
 
   leaf03:
+    fabriclinks: [swp51,swp52]
+    peerlinks: [swp49,swp50]
+    lo:
+      ipv4: 10.0.0.13/32
+      vxlan_anycast_ip: 34.34.34.34
     interfaces:
-      lo:
-        ipv4: 10.0.0.13/32
-        vxlan_anycast_ip: 34.34.34.34
-      fabriclinks: [swp51,swp52]
-      peerlinks: [swp49,swp50]
-      vlan_id:
-        - 20
-        - 100
-      vxlan_id:
-        - 10020
-        - 10100
-      svi_ip:
-        - 192.168.20.3/24
-        - 192.168.100.3/24
-      svi_vip:
-        - 192.168.20.254/24
-        - 192.168.100.254/24
-      svi_vmac:
-        - 00:00:5e:ff:00:20
-        - 00:00:5e:ff:01:00
-      l3_vni_mac: 44:38:39:ff:00:34
+      vlan20:
+        type: svi
+        address: 192.168.20.3/24
+        vrr_address: 192.168.20.254/24
+        vrr_mac: 00:00:5e:ff:00:20
+        vlan: 20
+        vrf: TENANT-A
+      vlan4001:
+        type: svi_l3_vni
+        hwaddress: 44:38:39:ff:00:33
+        vlan: 4001
+        vrf: TENANT-A
+      vni10020:
+        type: vni
+        vlan: 20
+        vxlan_id: 10020
     VRF:
       - TENANT-A
     bgp_as: 65013
@@ -121,24 +119,30 @@ switches:
       server_interface: swp1
 
   leaf04:
+    fabriclinks: [swp51,swp52]
+    peerlinks: [swp49,swp50]
+    lo:
+      ipv4: 10.0.0.14/32
+      vxlan_anycast_ip: 34.34.34.34
     interfaces:
-      lo:
-        ipv4: 10.0.0.14/32
-        vxlan_anycast_ip: 34.34.34.34
-      fabriclinks: [swp51,swp52]
-      peerlinks: [swp49,swp50]
-      serverlinks: [swp1,swp2]
     bgp_as: 65014
 
   exit01:
+    fabriclinks: [swp51,swp52]
+    peerlinks: [swp49,swp50]
+    lo:
+      ipv4: 10.0.0.41/32
+      vxlan_anycast_ip: 56.56.56.56
     interfaces:
-      lo:
-        ipv4: 10.0.0.41/32
-        vxlan_anycast_ip: 56.56.56.56
-      fabriclinks: [swp51,swp52]
-      peerlinks: [swp49,swp50]
-      l3_vni_mac: 44:38:39:ff:00:56
-      swp44_ip: 172.16.1.2/30
+      vlan4001:
+        type: svi_l3_vni
+        vlan: 4001
+        hw_address: 44:38:39:ff:00:56
+        vrf: TENANT_A
+      vni104001:
+        type: vni
+        vlan: 4001
+        vxlan_id: 104001
     VRF: TENANT-A
     clag:
       clag_sys_mac: 44:38:39:ff:00:56
@@ -149,14 +153,21 @@ switches:
     bgp_peer_ip: 172.16.1.1
 
   exit02:
+    fabriclinks: [swp51,swp52]
+    peerlinks: [swp49,swp50]
+    lo:
+      ipv4: 10.0.0.42/32
+      vxlan_anycast_ip: 56.56.56.56
     interfaces:
-      lo:
-        ipv4: 10.0.0.42/32
-        vxlan_anycast_ip: 56.56.56.56
-      fabriclinks: [swp51,swp52]
-      peerlinks: [swp49,swp50]
-      l3_vni_mac: 44:38:39:ff:00:56
-      swp44_ip: 172.16.2.2/30
+      vlan4001:
+        type: svi_l3_vni
+        vlan: 4001
+        hw_address: 44:38:39:ff:00:56
+        vrf: TENANT_A
+      vni104001:
+        type: vni
+        vlan: 4001
+        vxlan_id: 104001
     VRF: TENANT-A
     clag:
       clag_sys_mac: 44:38:39:ff:00:56
