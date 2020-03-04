@@ -21,22 +21,22 @@ switches:
       ipv4: 10.0.0.11/32
       vxlan_anycast_ip: 12.12.12.12
     interfaces:
-      - vlan10:
-          type: svi
-          address: 192.168.10.1/24
-          vrr_address: 192.168.10.254/24
-          vrr_mac: 00:00:5e:ff:00:10
-          vlan: 10
-          vrf: TENANT-A
-      - vlan4001:
-          type: svi_l3_vni
-          hwaddress: 44:38:39:ff:00:12
-          vlan: 4001
-          vrf: TENANT-A
-      - vni10010:
-          type: vni
-          vlan: 10
-          vxlan_id: 10010
+      vlan10:
+        type: svi
+        address: 192.168.10.1/24
+        vrr_address: 192.168.10.254/24
+        vrr_mac: 00:00:5e:ff:00:10
+        vlan: 10
+        vrf: TENANT-A
+      vlan4001:
+        type: svi_l3_vni
+        hwaddress: 44:38:39:ff:00:12
+        vlan: 4001
+        vrf: TENANT-A
+      vni10010:
+        type: vni
+        vlan: 10
+        vxlan_id: 10010
     VRF:
       - TENANT-A
     clag:
