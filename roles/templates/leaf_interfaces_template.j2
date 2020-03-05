@@ -50,7 +50,7 @@ iface {{ switches[ansible_hostname].server.server_bond }}
     clag-id {{ switches[ansible_hostname].server.server_clag_id }}
 
 {% for int in switches[ansible_hostname].interfaces %}
-{%   set interface = switches[ansible_hostname].interfaces.{{ int }} %}
+{%   set interface = switches[ansible_hostname].interfaces[{{ int }}] %}
 {% if interface.type == "svi" %}
 auto vlan{{ interface.vlan }}
 iface vlan{{ interface.vlan }}
