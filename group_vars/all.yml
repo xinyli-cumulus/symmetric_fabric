@@ -37,6 +37,10 @@ switches:
         type: vni
         vlan: 10
         vxlan_id: 10010
+      vni104001:
+        type: vni
+        vlan: 4001
+        vxlan_id: 104001
     VRF:
       - TENANT-A
     clag:
@@ -74,6 +78,10 @@ switches:
         type: vni
         vlan: 10
         vxlan_id: 10010
+      vni104001:
+        type: vni
+        vlan: 4001
+        vxlan_id: 104001
     VRF:
       - TENANT-A
     clag:
@@ -111,6 +119,10 @@ switches:
         type: vni
         vlan: 20
         vxlan_id: 10020
+      vni104001:
+        type: vni
+        vlan: 4001
+        vxlan_id: 104001
     VRF:
       - TENANT-A
     bgp_as: 65013
