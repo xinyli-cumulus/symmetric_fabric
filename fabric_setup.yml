@@ -23,23 +23,23 @@
   become_user: root
 
   tasks:
-  -name: Copy Interface File
-   template:
-     src: files/internet_interfaces
-     dest: /etc/network/interface
+  - name: Copy Interface File
+    template:
+      src: files/internet_interfaces
+      dest: /etc/network/interface
 
-  -name: Copy FRR File
-   template:
-     src: files/internet_frr
-     dest: /etc/frr/frr.conf
+  - name: Copy FRR File
+    template:
+      src: files/internet_frr
+      dest: /etc/frr/frr.conf
 
-  -name: Restart FRR
-   service:
-     name: frr
-     state: restarted
+  - name: Restart FRR
+    service:
+      name: frr
+      state: restarted
 
   - name: Apply Interface Configuration
-  command: ifreload -a
+    command: ifreload -a
 
 
 
