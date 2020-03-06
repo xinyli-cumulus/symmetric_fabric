@@ -1,9 +1,45 @@
 ---
-- hosts: leaf01
+- hosts: leaf01,leaf02,leaf03
   become: yes
   become_user: root
   roles:
     - leafs
+
+- hosts: spines
+  become: yes
+  become_user: root
+  roles:
+    - spines
+
+- hosts: exit01,exit02
+  become: yes
+  become_user: root
+  roles:
+    - exits
+
+- hosts: internet
+  remote_user: cumulus
+  become: yes
+  become_user: root
+
+  tasks:
+  -name: Copy Interface File
+   template:
+     src: files/internet_interfaces
+     dest: /etc/network/interface
+
+  -name: Copy FRR File
+   template:
+     src: files/internet_frr
+     dest: /etc/frr/frr.conf
+
+  -name: Restart FRR
+   service:
+     name: frr
+     state: restarted
+
+  - name: Apply Interface Configuration
+  command: ifreload -a
 
 
 

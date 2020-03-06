@@ -41,6 +41,8 @@ switches:
         type: vni
         vlan: 4001
         vxlan_id: 104001
+    bridge_ports: "vni10010 vni104001 peerlink server"
+    bridge_vlans: "10 100 4001"
     VRF:
       - TENANT-A
     clag:
@@ -82,6 +84,8 @@ switches:
         type: vni
         vlan: 4001
         vxlan_id: 104001
+    bridge_ports: "vni10010 vni104001 peerlink server"
+    bridge_vlans: "10 100 4001"
     VRF:
       - TENANT-A
     clag:
@@ -123,6 +127,8 @@ switches:
         type: vni
         vlan: 4001
         vxlan_id: 104001
+    bridge_ports: "vni10020 vni104001 peerlink swp1"
+    bridge_vlans: "20 100 4001"
     VRF:
       - TENANT-A
     bgp_as: 65013
@@ -155,6 +161,8 @@ switches:
         type: vni
         vlan: 4001
         vxlan_id: 104001
+    bridge_ports: "vni104001 peerlink"
+    bridge_vlans: "4001"
     VRF: TENANT-A
     clag:
       clag_sys_mac: 44:38:39:ff:00:56
@@ -163,6 +171,7 @@ switches:
       clag_priority: 1000
     bgp_as: 65041
     bgp_peer_ip: 172.16.1.1
+    internet_int_ip: 172.16.1.2/30
 
   exit02:
     fabriclinks: [swp51,swp52]
@@ -175,11 +184,13 @@ switches:
         type: svi_l3_vni
         vlan: 4001
         hw_address: 44:38:39:ff:00:56
-        vrf: TENANT_A
+        vrf: TENANT-A
       vni104001:
         type: vni
         vlan: 4001
         vxlan_id: 104001
+    bridge_ports: "vni104001 peerlink"
+    bridge_vlans: "4001"
     VRF: TENANT-A
     clag:
       clag_sys_mac: 44:38:39:ff:00:56
@@ -188,3 +199,4 @@ switches:
       clag_priority: 1000
     bgp_as: 65042
     bgp_peer_ip: 172.16.2.1
+    internet_int_ip: 172.16.2.2/30

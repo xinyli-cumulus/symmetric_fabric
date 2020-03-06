@@ -26,6 +26,11 @@ iface {{ item }}
 
 {% endfor %}
 
+auto swp44
+iface swp44
+    address {{ switches[ansible_hostname].internet_int_ip }}
+    vrf TENANT-A
+
 {% for item in switches[ansible_hostname].VRF %}
 auto {{ item }}
 iface {{ item }}
@@ -48,18 +53,6 @@ iface peerlink.4094
     clagd-peer-ip {{ switches[ansible_hostname].clag.clag_peer_address | replace("/30", "") }}
     clagd-priority {{ switches[ansible_hostname].clag.clag_priority }}
     clagd-sys-mac {{ switches[ansible_hostname].clag.clag_sys_mac }}
-
-{% if switches[ansible_hostname].server.server_bond %}
-auto {{ switches[ansible_hostname].server.server_bond }}
-iface {{ switches[ansible_hostname].server.server_bond }}
-    bond-slaves {{ switches[ansible_hostname].server.server_interface }}
-    bridge-access {{ switches[ansible_hostname].server.server_vlan }}
-    clag-id {{ switches[ansible_hostname].server.server_clag_id }}
-{% else %}
-auto {{ switches[ansible_hostname].server.server_interface }}
-iface {{ switches[ansible_hostname].server.server_interface }}
-    bridge-access {{ switches[ansible_hostname].server.server_vlan }}
-{% endif %}
 
 {% for int in switches[ansible_hostname].interfaces %}
 {%   set interface = switches[ansible_hostname].interfaces[int] %}

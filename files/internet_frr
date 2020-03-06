@@ -1,0 +1,21 @@
+frr defaults datacenter
+!
+service integrated-vtysh-config
+!
+log syslog informational
+!
+router bgp 25253
+ neighbor exit peer-group
+ neighbor exit remote-as external
+ neighbor swp1 interface peer-group exit
+ neighbor swp2 interface peer-group exit
+ !
+ address-family ipv4 unicast
+  redistribute connected route-map LOOPBACK
+ exit-address-family
+!
+route-map LOOPBACK permit 10
+ match interface lo
+!
+line vty
+!

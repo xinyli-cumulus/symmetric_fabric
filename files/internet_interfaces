@@ -1,0 +1,22 @@
+auto lo
+iface lo inet loopback
+    address 81.1.1.1/32
+
+auto swp1
+iface swp1
+    address 172.16.1.1/30
+
+auto swp2
+iface swp2
+    address 172.16.2.1/30
+
+auto swp48
+iface swp48 inet dhcp
+
+auto eth0
+iface eth0
+    address 192.168.0.253/24
+    
+auto bridge
+iface bridge
+    bridge-vlan-aware yes

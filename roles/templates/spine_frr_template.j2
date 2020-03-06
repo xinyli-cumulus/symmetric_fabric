@@ -1,0 +1,15 @@
+router bgp {{ switches[ansible_hostname].bgp_as }}
+ neighbor LEAF peer-group
+ neighbor LEAF remote-as external
+ neighbor swp1 interface peer-group LEAF
+ neighbor swp2 interface peer-group LEAF
+ neighbor swp3 interface peer-group LEAF
+ neighbor swp29 interface peer-group LEAF
+ neighbor swp30 interface peer-group LEAF
+ !
+ address-family l2vpn evpn
+  neighbor LEAF activate
+ exit-address-family
+!
+line vty
+!
