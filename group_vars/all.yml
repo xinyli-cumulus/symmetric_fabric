@@ -41,7 +41,7 @@ switches:
         type: vni
         vlan: 4001
         vxlan_id: 104001
-    bridge_ports: "vni10010 vni104001 peerlink server"
+    bridge_ports: "vni10010 vni104001 peerlink server1"
     bridge_vlans: "10 100 4001"
     VRF:
       - TENANT-A
@@ -84,7 +84,7 @@ switches:
         type: vni
         vlan: 4001
         vxlan_id: 104001
-    bridge_ports: "vni10010 vni104001 peerlink server"
+    bridge_ports: "vni10010 vni104001 peerlink server1"
     bridge_vlans: "10 100 4001"
     VRF:
       - TENANT-A
