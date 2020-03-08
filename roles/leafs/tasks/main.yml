@@ -16,7 +16,7 @@
 
 - name: Create Interfaces File
   template:
-    src: roles/templates/leaf_interfaces_template.j2
+    src: roles/templates/leaf_interface_template.j2
     dest: /etc/network/interfaces
 
 - name: Apply Interface Configuration

@@ -38,6 +38,7 @@ iface bridge
     bridge-vids {{ switches[ansible_hostname].bridge_vlans }}
     bridge-vlan-aware yes
 
+{% if switches[ansible_hostname].clag %}
 auto peerlink
 iface peerlink
     bond-slaves swp49 swp50
@@ -48,6 +49,7 @@ iface peerlink.4094
     clagd-peer-ip {{ switches[ansible_hostname].clag.clag_peer_address | replace("/30", "") }}
     clagd-priority {{ switches[ansible_hostname].clag.clag_priority }}
     clagd-sys-mac {{ switches[ansible_hostname].clag.clag_sys_mac }}
+{% endif %}
 
 {% if switches[ansible_hostname].server.server_bond %}
 auto {{ switches[ansible_hostname].server.server_bond }}
