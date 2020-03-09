@@ -38,7 +38,7 @@ iface bridge
     bridge-vids {{ switches[ansible_hostname].bridge_vlans }}
     bridge-vlan-aware yes
 
-{% if switches[ansible_hostname].clag %}
+{% if switches[ansible_hostname].clag is defined %}
 auto peerlink
 iface peerlink
     bond-slaves swp49 swp50
