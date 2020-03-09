@@ -127,7 +127,7 @@ switches:
         type: vni
         vlan: 4001
         vxlan_id: 104001
-    bridge_ports: "vni10020 vni104001 peerlink swp1"
+    bridge_ports: "swp1 vni10020 vni104001"
     bridge_vlans: "20 100 4001"
     VRF:
       - TENANT-A
