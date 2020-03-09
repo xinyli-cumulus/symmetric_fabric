@@ -9,7 +9,7 @@
   copy:
     src: files/server03_interfaces
     dest: /etc/network/interfaces
-  when: ansible_hostname == "server01"
+  when: ansible_hostname == "server03"
 
 - name: Restart Networking
   service:
