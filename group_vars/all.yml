@@ -196,8 +196,8 @@ switches:
       - TENANT-A
     clag:
       clag_sys_mac: 44:38:39:ff:00:56
-      clag_address: 169.254.1.1/30
-      clag_peer_address: 169.254.1.2/30
+      clag_address: 169.254.1.2/30
+      clag_peer_address: 169.254.1.1/30
       clag_priority: 1000
     bgp_as: 65042
     bgp_peer_ip: 172.16.2.1
