@@ -51,7 +51,7 @@ iface peerlink.4094
     clagd-sys-mac {{ switches[ansible_hostname].clag.clag_sys_mac }}
 {% endif %}
 
-{% if switches[ansible_hostname].server.server_bond %}
+{% if switches[ansible_hostname].server.server_bond is defined %}
 auto {{ switches[ansible_hostname].server.server_bond }}
 iface {{ switches[ansible_hostname].server.server_bond }}
     bond-slaves {{ switches[ansible_hostname].server.server_interface }}
