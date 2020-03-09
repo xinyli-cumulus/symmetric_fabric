@@ -33,6 +33,11 @@
       src: files/internet_frr
       dest: /etc/frr/frr.conf
 
+  - name: Copy FRR Daemons File  copy:
+    copy:
+      src: files/frr_daemons
+      dest: /etc/frr/daemons    
+
   - name: Restart FRR
     service:
       name: frr
