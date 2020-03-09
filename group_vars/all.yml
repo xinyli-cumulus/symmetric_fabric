@@ -156,7 +156,7 @@ switches:
         type: svi_l3_vni
         vlan: 4001
         hwaddress: 44:38:39:ff:00:56
-        vrf: TENANT_A
+        vrf: TENANT-A
       vni104001:
         type: vni
         vlan: 4001
