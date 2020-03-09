@@ -12,7 +12,7 @@
   when: ansible_hostname == "server03"
 
 - name: Restart Servers
-  reboot:
+  command: reboot
 
 
 
