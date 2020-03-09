@@ -46,7 +46,7 @@
   - name: Apply Interface Configuration
     command: ifreload -a
 
-- hosts: host
+- hosts: server01,server03
   remote_user: cumulus
   become: yes
   become_user: root
