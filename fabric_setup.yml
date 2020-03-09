@@ -26,14 +26,14 @@
   - name: Copy Interface File
     template:
       src: files/internet_interfaces
-      dest: /etc/network/interface
+      dest: /etc/network/interfaces
 
   - name: Copy FRR File
     template:
       src: files/internet_frr
       dest: /etc/frr/frr.conf
 
-  - name: Copy FRR Daemons File 
+  - name: Copy FRR Daemons File
     copy:
       src: files/frr_daemons
       dest: /etc/frr/daemons
