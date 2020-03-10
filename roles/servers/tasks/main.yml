@@ -20,7 +20,7 @@
 - name: waiting for servers to come back
   wait_for:
     host: "{{ ansible_hostname }}"
-
+    delay: 15
 
 
 
