@@ -18,7 +18,7 @@
   ignore_errors: true
 
 - name: waiting for servers to come back
-  wait_for_conntion:
+  wait_for_connection:
     host: "{{ ansible_hostname }}"
     delay: 15
 
