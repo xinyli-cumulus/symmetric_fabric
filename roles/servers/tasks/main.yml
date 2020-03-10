@@ -13,6 +13,14 @@
 
 - name: Restart Servers
   command: reboot
+  async: 0
+  poll: 0
+  ignore_errors: true
+
+- name: waiting for servers to come back
+  local_action: wait_for host={{ ansible_hostname }}
+                state=started
+  sudo: false
 
 
 
