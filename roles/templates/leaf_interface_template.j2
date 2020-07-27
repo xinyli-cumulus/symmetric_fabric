@@ -53,6 +53,7 @@ iface peerlink
 auto peerlink.4094
 iface peerlink.4094
     address {{ switches[ansible_hostname].clag.clag_address }}
+    clagd-backup-ip {{ switches[ansible_hostname].clag.clag_backup_ip }} vrf mgmt
     clagd-peer-ip {{ switches[ansible_hostname].clag.clag_peer_address | replace("/30", "") }}
     clagd-priority {{ switches[ansible_hostname].clag.clag_priority }}
     clagd-sys-mac {{ switches[ansible_hostname].clag.clag_sys_mac }}
